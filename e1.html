@@ -56,27 +56,47 @@
                     
                     for(var i = 0; i<selArr.length; i++){
                         
+                        //해당되는 항목 체크여부 확인
                         if(selArr[i].checked === true)
                         {
+                            //0인지 확인
                             if(i!==0){
-                                texta.value += selArr[i].value + " ";
-                            }
-                            else if(i!==0 && check === true){
-                                for(var j = 1; j<selArr.length; j++){
-                                    selArr[j].checked = false;
+                                //0에 체크가 남아있는지 확인
+                                //체크가 없을 경우
+                                if(check === false){
+                                    texta.value += selArr[i].value;
                                 }
-                                check = false;
-                                break;
-                            }
-                            else if(i===0 && check === false){
-                                for(var j = 1; j<selArr.length; j++){
-                                    selArr[j].checked = true;
-                                    texta.value += selArr[j].value + " ";
+                                //체크가 있을 경우
+                                else{
+                                    check = false;
+                                    selArr[0].checked = false;
+                                    texta.value += selArr[i].value;
                                 }
-                                check = true;
-                                break;
+                            }
+                            //0일 때
+                            else{
+                                //이미 체크 된 항목인지 확인
+                               if(check === false){
+                                    check = true;
+                                    for(var j = 1; j<selArr.length; j++){
+                                        selArr[j].checked = true;
+                                        texta.value += selArr[j].value;
+                                    }
+                                    break;
+                                }
+                                //dkd 
+                                
                             }
                             
+                        }
+                        else{
+                            if(selArr[0].checked === false&&check===true){
+                                    check = false;
+                                    for(var j = 1; j<selArr.length; j++){
+                                        selArr[j].checked = false;
+                                    }
+                                    break;
+                                } 
                         }
                         
                     }
