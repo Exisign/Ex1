@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        ul{
+            list-style-type:none
+        }
+        span{
+            width : 50%;
+            height : auto;
+        }
+    </style>
+</head>
+<body>
+         
+            <textarea name = "meno" cols = "30" rows = "10" id = "ta" value = " "></textarea>
+
+            <ul>
+                    <li><input type = "checkbox" name = "select" id = "1" unchecked value = "전체 선택">전체 선택</li>
+                    <li><input type = "checkbox" name = "select" id = "2" unchecked value = "야구">야구</li>
+                    <li><input type = "checkbox" name = "select" id = "3" unchecked value = "농구">농구</li>
+                    <li><input type = "checkbox" name = "select" id = "4" unchecked value = "축구">축구</li>
+                    <li><input type = "checkbox" name = "select" id = "5" unchecked value = "배구">배구</li>
+            </ul>
+    
+            <script>
+                var check = false;
+                var selArr;
+                var texta;
+
+                window.onload = function(){ //main 메서드
+                    // 1. 작업할 대상을 선택
+                    selArr = document.getElementsByTagName('input');
+                    texta = document.getElementById('ta');
+                    
+                    // 2. 이벤트 등록
+                    // 3. <input> 태그를 클릭했을 때, click 이벤트가 발생하도록
+
+                    for(var i = 0; i<selArr.length; i++){
+                        selArr[i].onclick = click;
+                    }
+                }
+
+                function click(){
+                    // 4. 클릭된 체크 박스의 내용이 TextArea에 저장돼야 함.
+
+                    // 5. 체크할 경우 체크 된 버튼을 확인
+
+                    
+                    texta.value = "";
+                    
+                    for(var i = 0; i<selArr.length; i++){
+                        
+                        if(selArr[i].checked === true)
+                        {
+                            if(i!==0){
+                                texta.value += selArr[i].value + " ";
+                            }
+                            else if(i!==0 && check === true){
+                                for(var j = 1; j<selArr.length; j++){
+                                    selArr[j].checked = false;
+                                }
+                                check = false;
+                                break;
+                            }
+                            else if(i===0 && check === false){
+                                for(var j = 1; j<selArr.length; j++){
+                                    selArr[j].checked = true;
+                                    texta.value += selArr[j].value + " ";
+                                }
+                                check = true;
+                                break;
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                    
+                }
+            </script>
+</body>
+</html>
