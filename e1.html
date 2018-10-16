@@ -52,56 +52,144 @@
                     // 5. 체크할 경우 체크 된 버튼을 확인
 
                     
-                    texta.value = "";
+                    // texta.value = "";
                     
-                    for(var i = 0; i<selArr.length; i++){
+                    // for(var i = 0; i<selArr.length; i++){
                         
-                        //해당되는 항목 체크여부 확인
-                        if(selArr[i].checked === true)
-                        {
-                            //0인지 확인
-                            if(i!==0){
-                                //0에 체크가 남아있는지 확인
-                                //체크가 없을 경우
-                                if(check === false){
-                                    texta.value += selArr[i].value;
-                                }
-                                //체크가 있을 경우
-                                else{
-                                    check = false;
-                                    selArr[0].checked = false;
-                                    texta.value += selArr[i].value;
-                                }
-                            }
-                            //0일 때
-                            else{
-                                //이미 체크 된 항목인지 확인
-                               if(check === false){
-                                    check = true;
-                                    for(var j = 1; j<selArr.length; j++){
-                                        selArr[j].checked = true;
-                                        texta.value += selArr[j].value;
-                                    }
-                                    break;
-                                }
-                                //dkd 
-                                
-                            }
+                    //     // 0 전체선택
+                    //     // 1 야구
+                    //     // 2 농구
+                    //     // 3 축구
+                    //     // 4 배구
+                    //     해당되는 항목 체크여부 확인
+                    //     if(selArr[i].checked === true)
+                    //     {
+                    //         //0인지 확인
+                    //         if(i!==0){
+                    //             //0에 체크가 남아있는지 확인
+                    //             //체크가 없을 경우
+                    //             if(check === false){
+                    //                 texta.value += selArr[i].value;
+                    //             }
+                    //             //체크가 있을 경우
+                    //             else{
+                    //                 check = false;
+                    //                 selArr[0].checked = false;
+                    //                 texta.value += selArr[i].value;
+                    //             }
+                    //         }
+                    //         //0일 때
+                    //         else{
+                    //             //이미 체크 된 항목인지 확인
+                    //            if(check === false){
+                    //                 check = true;
+                    //                 for(var j = 1; j<selArr.length; j++){
+                    //                     selArr[j].checked = true;
+                    //                     texta.value += selArr[j].value;
+                    //                 }
+                    //                 break;
+                    //             }
+                    //         }
                             
+                    //     }
+                    //     else{
+                    //         if(selArr[0].checked === false&&check===true){
+                    //                 check = false;
+                    //                 for(var j = 1; j<selArr.length; j++){
+                    //                     selArr[j].checked = false;
+                    //                 }
+                    //                 break;
+                    //             } 
+                    //     }  
+                    // }
+                    
+                    
+                    // selArr;  // input tag의 내장 정보들이 배열로 담김 
+                    // texta;   // text area의 내장 정보들이 담김
+
+                    // selArr[0] 전체 선택
+                    // selArr[1] 야구
+                    // selArr[2] 농구
+                    // selArr[3] 축구
+                    // selArr[4] 배구
+
+                    // 전체 선택시 모두 선택
+                    //  - 전체 선택 중, 다른 요소 해제시 전체 선택 해제
+                    //  - 전체 선택 해제시, 모두 해제
+
+                    // 요소가 선택 될 경우 인자가 들어가야 함.
+
+
+                    //-------------------------------------------------
+
+                    // //시작시 초기화
+                    // texta.value = "";     
+
+                    // //1. 전체 선택 경험이 있을 때
+                    // //1.1 전체 선택이 해제되면
+                    // if(selArr[0].checked === false && check){
+                    //     check = false;
+                    //     for(var i = 1; i<selArr.length; i++){
+                    //         selArr[i].checked = false;
+                    //     }
+                    // }
+                    // //1.2 전체 선택이 유지 되면
+                    // else if(selArr[0].checked !== false && check){
+                    //     for(var i = 1; i<selArr.length; i++){
+                    //         //1.2.1 index[1~4]의 상태가 true일 경우
+                    //         if(selArr[i].checked === true){
+                    //             texta.value += selArr[i].value;
+                    //         }
+                    //         //1.2.2 false가 나올 경우
+                    //         else{
+                    //             selArr[0].checked = false;
+                    //             check = false;
+                    //         }
+                    //     }
+                    // }
+                    
+                    // //2. 전체 선택 경험이 없을 때
+                    // //2.1 전체 선택이 선택 되면
+                    // else if(selArr[0].checked === true&& !check){
+                    //         check = true;
+                    //         for(var i = 1; i<selArr.length; i++){
+                    //             texta.value += selArr[i].value;
+                    //             selArr[i].checked = true;
+                    //         }
+                    //     }
+                    // //2.2 전체 선택이 선택되지 않으면
+                    // // else if(selArr[0].checked !== true&& !check){
+                    // else{
+                    //     for(var i = 1; i<selArr.length; i++){
+                    //         if(selArr[i].checked === true){
+                    //             texta.value += selArr[i].value;
+                    //             }
+                    //     }
+                    // }
+
+                    //-------------------------------------------------
+
+                    texta.value = "";
+
+                    if(this.value === "전체 선택" && check === false){
+                        for(var i = 0; i<selArr.length; i++){
+                            selArr[i].checked = true;
                         }
-                        else{
-                            if(selArr[0].checked === false&&check===true){
-                                    check = false;
-                                    for(var j = 1; j<selArr.length; j++){
-                                        selArr[j].checked = false;
-                                    }
-                                    break;
-                                } 
-                        }
-                        
+                        check = true;
                     }
-                    
-                    
+                    else if(this.value === "전체 선택" && check === true){
+                        for(var i = 0; i<selArr.length; i++){
+                            selArr[i].checked = false;
+                        }
+                        check = false;
+                    }
+                  
+                    for(var i = 1; i<selArr.length; i++){
+                        if(selArr[i].checked===true){
+                            texta.value += selArr[i].value;
+                        }
+                    }
+                   
                 }
             </script>
 </body>

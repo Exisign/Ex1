@@ -10,12 +10,12 @@
     <table>
         <tr>
             <td>
-                <select name="" id="" multiple>
-                    <option value="농구">농구</option>
-                    <option value="축구">축구</option>
-                    <option value="배구">배구</option>
-                    <option value="탁구">탁구</option>
-                    <option value="농구">농구</option>
+                <select name="" id="11" multiple>
+                    <option value="농구" class = 5 aria-selected="true">농구</option>
+                    <option value="축구" class = 5 >축구</option>
+                    <option value="배구" class = 5 >배구</option>
+                    <option value="탁구" class = 5 >탁구</option>
+                    <option value="농구" class = 5 >농구</option>
                 </select>
             </td>
             <td>
@@ -25,25 +25,103 @@
                 <button id = 4>&gt;&gt;</button><br>
             </td>
             <td>
-                <select name="" id="" multiple>
-                    <option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
-                        <!-- <option value="">농구</option>
-                        <option value="">농구</option>
-                        <option value="">농구</option>
-                        <option value="">농구</option>
-                        <option value="">농구</option> -->
-                    </select>
-                
-
+                <select name="" id="12" multiple><option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option></select>
             </td>
         </tr>
     </table>
 
     <script>
-        var a = 
-        window.onload() = function(){
-            
+        var list
+
+        window.onload = function onbuttonclick(){
+            but = document.getElementsByTagName('button');
+            //but[0] = <
+            //but[1] = >
+            //but[2] = <<
+            //but[3] = >>
+            list = document.getElementsByTagName('select');
+            //list[0] = select 10
+            //list[1] = select 11
+
+            but[0].onclick = onButtonClick1;
+            but[1].onclick = onButtonClick2;
+            but[2].onclick = onButtonClick3;
+            but[3].onclick = onButtonClick4;
+
+                            
         }
+
+        function onButtonClick1(){
+            
+            var str = "     ";
+
+            //list 1의 크기만큼 반복한다.
+            for(var i = 0; i<list[1].options.length; i++){
+               //선택 됐는지 확인한다.
+                if(list[1].options[i].selected === true && list[1].options[i].text !== str){
+                    //list 2의 내용이 공간할당인지 확인한다
+                    if(list[0].options[0].text === str){
+                        list[1].add(list[0].options[0]);
+                    }
+                    list[0].add(list[1].options[i]);
+                    i--;
+                }
+            }
+        }
+
+        function onButtonClick2(){
+
+            var str = "     ";
+
+            //list 1의 크기만큼 반복한다.
+            for(var i = 0; i<list[0].options.length; i++){
+               //선택 됐는지 확인한다.
+                if(list[0].options[i].selected === true && list[0].options[i].text !== str){
+                    //list 2의 내용이 공간할당인지 확인한다
+                    if(list[1].options[0].text === str){
+                        list[0].add(list[1].options[0]);
+                    }
+                    list[1].add(list[0].options[i]);
+                    i--;
+                }
+            }
+        }
+        function onButtonClick3(){
+            //but[2] = <<
+            var str = "<option value=\"\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>";
+            if(list[1].innerHTML !== str)
+            {
+                if(list[0].innerHTML !== str)
+                {
+                    list[0].innerHTML += list[1].innerHTML;
+                    list[1].innerHTML = str;
+                }
+                else
+                {
+                    list[0].innerHTML = list[1].innerHTML;
+                    list[1].innerHTML = str;
+                }
+            }
+        }
+
+        function onButtonClick4(){
+            //but[3] = >>
+             var str = "<option value=\"\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>";
+            if(list[0].innerHTML !== str)
+            {
+                if(list[1].innerHTML !== str)
+                {
+                    list[1].innerHTML += list[0].innerHTML;
+                    list[0].innerHTML = str;
+                }
+                else
+                {
+                    list[1].innerHTML = list[0].innerHTML;
+                    list[0].innerHTML = str;
+                }
+            }
+        }
+        
     </script>
 </body>
 </html>
