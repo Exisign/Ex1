@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+        form{
+            width: 980px;
+            height: auto;
+        }
+
+        img {
+            width: 87px;
+            height: 132px;
+        }
+    </style>
+</head>
+<body>
+    <!-- <img src=".\image\2C.jpg" alt=""> -->
+    <form>
+
+    </form>
+
+    <button id=hideBtn>뒤집기</button>
+    <button id=showBtn>보이기</button>
+    <button id=shuffleBtn>섞기</button>
+    
+
+    <script>
+        var backImg = '';
+        var frontImg = '';
+
+        var b = document.querySelector('form');
+        var hbtn;
+        var showbtn;
+        var shufflebtn;
+        var cardArr = [];
+
+
+
+        window.onload = function (){
+
+            hbtn = document.getElementById('hideBtn');
+            showbtn = document.getElementById('showBtn');
+            shufflebtn = document.getElementById('shuffleBtn');
+
+            for(var i = 0; i<52; i++){
+                cardArr[i] = '<img src=\".\\image\\' + num(i) + mark(i)  + '.jpg\"' + " " + 'alt=\"\">';
+                 b.innerHTML += cardArr[i];
+            }
+            
+            hbtn.onclick = hide;
+            showbtn.onclick = show;
+            shufflebtn.onclick = suffle;
+            
+            
+        }
+        
+
+        function hide() {
+            b.innerHTML = "";
+
+            for(var i = 0; i<52; i++){
+                 b.innerHTML += '<img src=\".\\image\\' + "Gray_back.jpg\"" + 'alt=\"\">'
+            }
+        }
+        
+        function show() {
+            b.innerHTML = "";
+            for(var i = 0; i<52; i++){
+                 b.innerHTML += cardArr[i];
+            }
+        }
+
+        function suffle() {
+            b.innerHTML = ""
+            // for(var i = 0; i<cardArr.length * 2; i++){
+            //     var temp = cardArr[0];  
+            //     var rand = Math.floor(Math.random()*cardArr.length);         
+            //     cardArr[0] = cardArr[rand];
+            //     cardArr[rand] = temp;
+            // }
+            cardArr.sort((a,b)=>Math.random()-0.5);
+            show();
+        }
+
+        function num(i){
+            switch(i%13+1){
+                case 1: return "A";
+                case 2: return "2";
+                case 3: return "3";
+                case 4: return "4";
+                case 5: return "5";
+                case 6: return "6";
+                case 7: return "7";
+                case 8: return "8";
+                case 9: return "9";
+                case 10: return "10";
+                case 11: return "J";
+                case 12: return "Q";
+                case 13: return "K";
+            }
+        }
+
+        function mark(i){
+            switch(i%4){
+                case 0: return "S";
+                case 1: return "D";
+                case 2: return "H";
+                case 3: return "C";
+            }
+        }
+    </script>
+</body>
+</html>

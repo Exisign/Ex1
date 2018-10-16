@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="header0">Header</h1>
+    <h1>Header</h1>
+    <h1>Header</h1>
+
+    <script>
+        window.onload = function(){
+            var hltag = document.getElementById('header0');
+            var hltags = document.querySelectorAll('h1');
+
+            hltag.innerHTML += '- first';
+
+            for(var i = 0; i<hltags.length; i++){
+                hltags[i].innerHTML += '-' + i;
+                hltags[i].style.border = '2px solid red';
+                hltags[i].style.color = 'orange';
+                hltags[i].style.backgroundColor = 'yellow';
+                
+            }
+            
+        }
+    </script>
+</body>
+</html>
