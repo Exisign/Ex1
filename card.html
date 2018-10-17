@@ -7,7 +7,7 @@
     <title>Document</title>
     <style>
 
-        form{
+        div{
             width: 980px;
             height: auto;
         }
@@ -20,71 +20,118 @@
 </head>
 <body>
     <!-- <img src=".\image\2C.jpg" alt=""> -->
-    <form>
+    
+    <div></div>
 
-    </form>
-
-    <button id=hideBtn>뒤집기</button>
-    <button id=showBtn>보이기</button>
-    <button id=shuffleBtn>섞기</button>
+    <button id=hideBtn      onclick = hide()    >뒤집기</button>
+    <button id=showBtn      onclick = show()    >보이기</button>
+    <button id=shuffleBtn   onclick = shuffle() >섞기</button>
     
 
     <script>
-        var backImg = '';
-        var frontImg = '';
-
-        var b = document.querySelector('form');
-        var hbtn;
-        var showbtn;
-        var shufflebtn;
-        var cardArr = [];
-
-
-
+        var hidecheck = false;
+        var cardArr = {
+            src: undefined,
+            alt: undefined
+        }
+        //cardArr은 이미지의 경로를 가지고 있다.
+        var divScript;
+        var couple = new Array(-1, -1);
+        
         window.onload = function (){
 
-            hbtn = document.getElementById('hideBtn');
-            showbtn = document.getElementById('showBtn');
-            shufflebtn = document.getElementById('shuffleBtn');
+            divScript = document.querySelector("div");
+            for(var i = 0; i<52; i++){
+                cardArr[i] = new Object();
+                cardArr[i].src = loadIncode(num(i)+mark(i));
+                cardArr[i].alt = i;
+                divScript.innerHTML +=  srcIncode(cardArr[i].scr, cardArr[i].alt);
+            }
 
             for(var i = 0; i<52; i++){
-                cardArr[i] = '<img src=\".\\image\\' + num(i) + mark(i)  + '.jpg\"' + " " + 'alt=\"\">';
-                 b.innerHTML += cardArr[i];
+                divScript.childNodes[i].onclick = cardClick;
             }
             
-            hbtn.onclick = hide;
-            showbtn.onclick = show;
-            shufflebtn.onclick = suffle;
-            
-            
         }
-        
+        function coupleCheck(exthis){
+            if(couple[0] == -1){
+                couple[0] = exthis;
+                //alert(1);
+            }
+            else{
+                if(couple[0] !== exthis && couple[0] !== -1){
+                    //couple 에는 exthis 객체가 저장돼있음.
+                    var mark1 = couple[0].alt%4;
+                    var mark2;
+                    couple[1] = exthis;
+                    mark2 = couple[1].alt%4
+                    //alert(2);
+                    //0, 2은 S, C
+                    //1, 3은 D, H
+
+                    if(mark1%2===mark2%2){
+                        alert("일치");
+                    }else{
+                        alert("불일치");
+                        couple[0].src = loadIncode("Gray_back");
+                        couple[1].src = loadIncode("Gray_back");
+                    }
+                    
+                    couple[0] = -1;
+                    couple[1] = -1;
+
+                }else{
+                    couple[0] = -1;
+                    //alert(3);
+                }
+            }
+        }
+
+        function cardClick(){
+
+            //exthis = divScript.childNodes[i]
+            //클릭한 것
+            var exthis = this;
+           //exthis.outerHTML => 이미지의 원경로.
+
+            console.log(exthis.outerHTML);
+            console.log(srcIncode(cardArr[exthis.alt], exthis.alt));
+            
+            if(exthis.outerHTML == srcIncode(cardArr[exthis.alt], exthis.alt)){
+                exthis.src = loadIncode("Gray_back");
+                console.log(exthis.src);
+            }
+            else{
+                console.log(exthis.outerHTML);
+                console.log(cardArr[exthis.alt]);
+                exthis.src = cardArr[exthis.alt];
+
+
+                coupleCheck(exthis);
+            }
+        }
 
         function hide() {
-            b.innerHTML = "";
-
             for(var i = 0; i<52; i++){
-                 b.innerHTML += '<img src=\".\\image\\' + "Gray_back.jpg\"" + 'alt=\"\">'
+                divScript.childNodes[i].src = loadIncode("Gray_back");
             }
         }
         
         function show() {
-            b.innerHTML = "";
             for(var i = 0; i<52; i++){
-                 b.innerHTML += cardArr[i];
+                divScript.childNodes[i].src = cardArr[i];
             }
         }
 
-        function suffle() {
-            b.innerHTML = ""
+        function shuffle() {
             // for(var i = 0; i<cardArr.length * 2; i++){
             //     var temp = cardArr[0];  
             //     var rand = Math.floor(Math.random()*cardArr.length);         
             //     cardArr[0] = cardArr[rand];
             //     cardArr[rand] = temp;
             // }
-            cardArr.sort((a,b)=>Math.random()-0.5);
-            show();
+            divScript.sort((a,b)=>Math.random()-0.5);
+            hide();
         }
 
         function num(i){
@@ -109,9 +156,16 @@
             switch(i%4){
                 case 0: return "S";
                 case 1: return "D";
-                case 2: return "H";
-                case 3: return "C";
+                case 2: return "C";
+                case 3: return "H";
             }
+        }
+
+        function loadIncode(jpg){  
+            return ".\\image\\" + jpg + ".jpg";
+        }
+        function srcIncode(load, alt){
+            return "<img src=\"" + load + "\" alt=\"" + alt + "\">";
         }
     </script>
 </body>
