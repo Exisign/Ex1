@@ -8,10 +8,8 @@
 </head>
 <body>
 	<%
-	String url = request.getParameter("url");
-	
-	session.invalidate();
-	response.sendRedirect(url);
+	session.removeAttribute("power");
+	response.sendRedirect((String)session.getAttribute("url"));
 	%>
 </body>
 </html>

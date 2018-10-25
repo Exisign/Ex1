@@ -36,7 +36,6 @@ public class LoginAction extends HttpServlet {
 		String pwd = request.getParameter("pwd");
 		String check = request.getParameter("check");
 		String url = request.getParameter("url");
-		
 		PrintWriter out = response.getWriter();
 		
 		
@@ -64,20 +63,33 @@ public class LoginAction extends HttpServlet {
 				
 			}
 			request.getSession().setAttribute("power", "user");
+			System.out.println(url);
 			response.sendRedirect(url);
 		}else {
 			
-			System.out.println("여기2");
-			Cookie cookie_id = new Cookie("cookie_id", "");
-			Cookie cookie_check = new Cookie("cookie_check", "");
 			
-			cookie_id.setMaxAge(0);
-			cookie_check.setMaxAge(0);
+			if(check!=null&&check.equals("on")) {
+				Cookie cookie_id = new Cookie("cookie_id", id);
+				Cookie cookie_check = new Cookie("cookie_check", "checked");
+				
+				response.addCookie(cookie_id);
+				response.addCookie(cookie_check);
 			
-			response.addCookie(cookie_id);
-			response.addCookie(cookie_check);
+			}
+			else {
+				System.out.println("여기1");
+				Cookie cookie_id = new Cookie("cookie_id", "");
+				Cookie cookie_check = new Cookie("cookie_check", "");
+				
+				cookie_id.setMaxAge(0);
+				cookie_check.setMaxAge(0);
+				
+				response.addCookie(cookie_id);
+				response.addCookie(cookie_check);
+				
+			}
 			
-			response.sendRedirect("board.jsp");
+			response.sendRedirect("login.jsp");
 		}
 		
 	}

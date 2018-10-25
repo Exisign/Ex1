@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="login.Member"%>
+<%@ page import="login.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,9 +9,10 @@
 </head>
 <body>
 
-	<jsp:useBean id="memberInfo" class="login.Member" />
-	<%-- <jsp:setProperty name="memberInfo" property="*" /> --%>
+	<jsp:useBean id="memberInfo" class="login.Member" scope="request" />
+	<%-- <jsp:useBean id="MemberData" class="login.MemberData" scope="page" /> --%>
+	<jsp:setProperty name="memberInfo" property="*" />
 	
-	<%-- <jsp:forward page="/registerView.jsp"/> --%>
+	<jsp:forward page="/registerView.jsp"/>
 </body>
 </html>
